@@ -39,18 +39,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               child: ListTile(
                 titleAlignment: ListTileTitleAlignment.center,
                 title: Text(
-                  "Waris",
-                  style: TextStyle(color: AppConstant.appTextColor),
-                ),
-                subtitle: Text(
-                  "Version 1.0.1",
+                  "Spoorthi",
                   style: TextStyle(color: AppConstant.appTextColor),
                 ),
                 leading: CircleAvatar(
                   radius: 22.0,
                   backgroundColor: AppConstant.appMainColor,
                   child: Text(
-                    "W",
+                    "S",
                     style: TextStyle(color: AppConstant.appTextColor),
                   ),
                 ),
