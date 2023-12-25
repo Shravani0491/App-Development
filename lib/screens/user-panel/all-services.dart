@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_card/image_card.dart';
-//import 'package:image_card/image_card.dart';
+import 'package:image_card/image_card.dart';
 import '../../models/services-model.dart';
 import '../../utils/app-constant.dart';
 //import 'product-deatils-screen.dart';

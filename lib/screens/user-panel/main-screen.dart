@@ -14,6 +14,7 @@ import '../../widgets/custom-drawer-widget.dart';
 import '../../widgets/services-widget.dart';
 import '../../widgets/heading-widget.dart';
 import 'all-categories-screen.dart';
+import 'all-services.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -24,9 +25,9 @@ class MainScreen extends StatelessWidget {
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppConstant.appTextColor),
         systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: AppConstant.appMainColor,
+            statusBarColor: const Color.fromARGB(255, 228, 194, 191),
             statusBarIconBrightness: Brightness.light),
-        backgroundColor: AppConstant.appMainColor,
+        backgroundColor: Color.fromARGB(255, 93, 212, 75),
         title: Text(
           AppConstant.appMainName,
           style: TextStyle(color: AppConstant.appTextColor),
@@ -69,7 +70,7 @@ class MainScreen extends StatelessWidget {
               //heading
               HeadingWidget(
                 headingTitle: "Services",
-                headingSubTitle: "Everyone loves a great garden",
+                headingSubTitle: "Everyone Loves a great garden.",
                 onTap: () => Get.to(() {
                   var serviceID2 = '';
                   return ServicesScreen(
@@ -84,7 +85,7 @@ class MainScreen extends StatelessWidget {
               //heading
               HeadingWidget(
                 headingTitle: "All Products",
-                headingSubTitle: "Go the green way",
+                headingSubTitle: "According to your budget",
                 onTap: () => Get.to(() => AllProductsScreen()),
                 buttonText: "See More >",
               ),
