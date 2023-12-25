@@ -59,7 +59,7 @@ class MainScreen extends StatelessWidget {
               //heading
               HeadingWidget(
                 headingTitle: "Categories",
-                headingSubTitle: "",
+                headingSubTitle: "According to your budget",
                 onTap: () => Get.to(() => AllCategoriesScreen()),
                 buttonText: "See More >",
               ),
@@ -69,7 +69,7 @@ class MainScreen extends StatelessWidget {
               //heading
               HeadingWidget(
                 headingTitle: "Services",
-                headingSubTitle: "",
+                headingSubTitle: "Everyone loves a great garden",
                 onTap: () => Get.to(() => AllFlashSaleProductScreen()),
                 buttonText: "See More >",
               ),
@@ -79,7 +79,7 @@ class MainScreen extends StatelessWidget {
               //heading
               HeadingWidget(
                 headingTitle: "All Products",
-                headingSubTitle: "Plants Accessories Tools Seeds Fertilizers",
+                headingSubTitle: "Go the green way",
                 onTap: () => Get.to(() => AllProductsScreen()),
                 buttonText: "See More >",
               ),

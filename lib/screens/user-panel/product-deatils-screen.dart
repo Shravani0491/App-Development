@@ -78,7 +78,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               options: CarouselOptions(
                 scrollDirection: Axis.horizontal,
                 autoPlay: true,
-                aspectRatio: 2.5,
+                aspectRatio: 1.25,
                 viewportFraction: 1,
               ),
             ),
