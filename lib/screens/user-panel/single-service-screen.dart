@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_comm/models/product-model.dart';
+import 'package:e_comm/screens/user-panel/service-details-screen.dart';
 import 'package:e_comm/utils/app-constant.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -10,27 +11,32 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_card/image_card.dart';
 
-import 'product-deatils-screen.dart';
+import '../../models/service-detail-model.dart';
 
-class SingleServiceScreen extends StatefulWidget {
+
+class SingleServicesScreen extends StatefulWidget {
   String serviceID;
-  SingleServiceScreen({super.key, required this.serviceID});
+  SingleServicesScreen({super.key, required this.serviceID});
 
   @override
-  State<SingleServiceScreen> createState() => _SingleServiceScreenState();
+  State<SingleServicesScreen> createState() =>
+      _SingleServicesScreenState();
 }
 
-class _SingleServiceScreenState extends State<SingleServiceScreen> {
+class _SingleServicesScreenState
+    extends State<SingleServicesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: AppConstant.appTextColor),
         backgroundColor: AppConstant.appMainColor,
-        title: Text('Catelogue'),
+        title:
+        Text("Catelogue", style: TextStyle(color: AppConstant.appTextColor)),
       ),
       body: FutureBuilder(
         future: FirebaseFirestore.instance
-            .collection('catelogue')
+            .collection('servicedetail')
             .where('serviceID', isEqualTo: widget.serviceID)
             .get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -41,7 +47,7 @@ class _SingleServiceScreenState extends State<SingleServiceScreen> {
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
-              height: Get.height / 5,
+              height: Get.height / 4,
               child: Center(
                 child: CupertinoActivityIndicator(),
               ),
@@ -50,7 +56,7 @@ class _SingleServiceScreenState extends State<SingleServiceScreen> {
 
           if (snapshot.data!.docs.isEmpty) {
             return Center(
-              child: Text("No category found!"),
+              child: Text("No options found!"),
             );
           }
 
@@ -66,20 +72,13 @@ class _SingleServiceScreenState extends State<SingleServiceScreen> {
                 childAspectRatio: 1.19,
               ),
               itemBuilder: (context, index) {
-                final productData = snapshot.data!.docs[index];
-                ProductModel productModel = ProductModel(
-                  productId: productData['productId'],
-                  categoryId: productData['categoryId'],
-                  productName: productData['productName'],
-                  categoryName: productData['categoryName'],
-                  salePrice: productData['salePrice'],
-                  fullPrice: productData['fullPrice'],
-                  productImages: productData['productImages'],
-                  deliveryTime: productData['deliveryTime'],
-                  isSale: productData['isSale'],
-                  productDescription: productData['productDescription'],
-                  createdAt: productData['createdAt'],
-                  updatedAt: productData['updatedAt'],
+                final serviceData = snapshot.data!.docs[index];
+                ServicedetailModel servicedetailModel = ServicedetailModel(
+                  servicedID: serviceData['servicedID'],
+                  serviceID: serviceData['serviceID'],
+                  serviceName: serviceData['serviceName'],
+                  servicedImg: serviceData['servicedImg'],
+                  serviceDescription: serviceData['serviceDescription'],
                 );
 
                 // CategoriesModel categoriesModel = CategoriesModel(
@@ -93,23 +92,16 @@ class _SingleServiceScreenState extends State<SingleServiceScreen> {
                   children: [
                     GestureDetector(
                       onTap: () => Get.to(() =>
-                          ProductDetailsScreen(productModel: productModel)),
+                          ServiceDetailsScreen(servicedetailModel: servicedetailModel)),
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Container(
                           child: FillImageCard(
                             borderRadius: 20.0,
-                            width: Get.width / 2.3,
-                            heightImage: Get.height / 10,
+                            width: Get.width / 2.2,
+                            heightImage: Get.height / 6.6,
                             imageProvider: CachedNetworkImageProvider(
-                              productModel.productImages[0],
-                            ),
-                            title: Center(
-                              child: Text(
-                                productModel.productName,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 12.0),
-                              ),
+                              servicedetailModel.servicedImg[0],
                             ),
                           ),
                         ),
