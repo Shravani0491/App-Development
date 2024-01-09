@@ -23,6 +23,10 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+<<<<<<< HEAD
+        backgroundColor: AppConstant.appMainColor,
+        title: Text('All Orders'),
+=======
         iconTheme: IconThemeData(
           color: AppConstant.appTextColor,
         ),
@@ -31,6 +35,7 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
           "All Orders",
           style: TextStyle(color: AppConstant.appTextColor),
         ),
+>>>>>>> services
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
