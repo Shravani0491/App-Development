@@ -9,6 +9,8 @@ import 'package:e_comm/screens/user-panel/all-services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_card/image_card.dart';
+
+import '../screens/user-panel/single-service-screen.dart';
 //import 'package:image_card/image_card.dart';
 
 //import '../screens/user-panel/product-deatils-screen.dart';
@@ -58,7 +60,7 @@ class Services extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () => Get.to(() =>
-                          ServicesScreen(serviceID: serviceModel.serviceID)),
+                          SingleServicesScreen(serviceID: serviceModel.serviceID)),
                       child: Padding(
                         padding: EdgeInsets.all(5.0),
                         child: Container(

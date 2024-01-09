@@ -8,12 +8,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../utils/app-constant.dart';
 import '../../widgets/all-products-widget.dart';
+import '../../widgets/all-services-widget.dart';
 import '../../widgets/banner-widget.dart';
 import '../../widgets/category-widget.dart';
 import '../../widgets/custom-drawer-widget.dart';
 import '../../widgets/services-widget.dart';
 import '../../widgets/heading-widget.dart';
 import 'all-categories-screen.dart';
+import 'all-service-detail-screen.dart';
 import 'all-services.dart';
 
 class MainScreen extends StatelessWidget {
@@ -60,7 +62,7 @@ class MainScreen extends StatelessWidget {
               //heading
               HeadingWidget(
                 headingTitle: "Categories",
-                headingSubTitle: "According to your budget",
+                headingSubTitle: "Find all the categories here",
                 onTap: () => Get.to(() => AllCategoriesScreen()),
                 buttonText: "See More >",
               ),
@@ -70,7 +72,7 @@ class MainScreen extends StatelessWidget {
               //heading
               HeadingWidget(
                 headingTitle: "Services",
-                headingSubTitle: "Everyone Loves a great garden.",
+                headingSubTitle: "Everyone Loves a great garden",
                 onTap: () => Get.to(() {
                   var serviceID2 = '';
                   return ServicesScreen(
@@ -85,12 +87,21 @@ class MainScreen extends StatelessWidget {
               //heading
               HeadingWidget(
                 headingTitle: "All Products",
-                headingSubTitle: "According to your budget",
+                headingSubTitle: "Go the Green way",
                 onTap: () => Get.to(() => AllProductsScreen()),
                 buttonText: "See More >",
               ),
 
               AllProductsWidget(),
+
+              HeadingWidget(
+                headingTitle: "All Services",
+                headingSubTitle: "Go the Green way",
+                onTap: () => Get.to(() => AllServicesScreen()),
+                buttonText: "See More >",
+              ),
+
+              AllServicesWidget(),
             ],
           ),
         ),

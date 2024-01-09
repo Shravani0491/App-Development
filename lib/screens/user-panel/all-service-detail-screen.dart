@@ -1,27 +1,21 @@
-// ignore_for_file: file_names, prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: file_names, prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, prefer_interpolation_to_compose_strings
 
-//import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_comm/models/product-model.dart';
 import 'package:e_comm/screens/user-panel/service-details-screen.dart';
-import 'package:e_comm/screens/user-panel/single-service-screen.dart';
+import 'package:e_comm/utils/app-constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_card/image_card.dart';
-import 'package:image_card/image_card.dart';
-import '../../models/services-model.dart';
-import '../../utils/app-constant.dart';
-//import 'product-deatils-screen.dart';
 
-class ServicesScreen extends StatefulWidget {
-  const ServicesScreen({super.key, required String serviceID});
+import '../../models/service-detail-model.dart';
+import 'product-deatils-screen.dart';
 
-  @override
-  State<ServicesScreen> createState() => _ServicesScreenState();
-}
+class AllServicesScreen extends StatelessWidget {
+  const AllServicesScreen({super.key});
 
-class _ServicesScreenState extends State<ServicesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,12 +25,14 @@ class _ServicesScreenState extends State<ServicesScreen> {
         ),
         backgroundColor: AppConstant.appMainColor,
         title: Text(
-          "Services",
+          'All Services',
           style: TextStyle(color: AppConstant.appTextColor),
         ),
       ),
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection('Services').get(),
+        future: FirebaseFirestore.instance
+            .collection('servicedetail')
+            .get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Center(
@@ -65,42 +61,18 @@ class _ServicesScreenState extends State<ServicesScreen> {
               physics: BouncingScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: 3,
-                crossAxisSpacing: 3,
-                childAspectRatio: 1.19,
+                mainAxisSpacing: 5,
+                crossAxisSpacing: 5,
+                childAspectRatio: 0.80,
               ),
               itemBuilder: (context, index) {
-                ServicesModel serviceModel = ServicesModel(
-                  serviceID: snapshot.data!.docs[index]['serviceID'],
-                  serviceImg: snapshot.data!.docs[index]['serviceImg'],
-                  serviceName: snapshot.data!.docs[index]['serviceName'],
-                );
-                return Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => Get.to(() => SingleServicesScreen(
-                          serviceID: serviceModel.serviceID)),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Container(
-                          child: FillImageCard(
-                            borderRadius: 20.0,
-                            width: Get.width / 2.3,
-                            heightImage: Get.height / 10,
-                            imageProvider: CachedNetworkImageProvider(
-                              serviceModel.serviceImg,
-                            ),
-                            title: Center(
-                              child: Text(
-                                serviceModel.serviceName,
-                                style: TextStyle(fontSize: 12.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                final serviceData = snapshot.data!.docs[index];
+                ServicedetailModel servicedetailModel = ServicedetailModel(
+                  servicedID: serviceData['servicedID'],
+                  serviceID: serviceData['serviceID'],
+                  serviceName: serviceData['serviceName'],
+                  servicedImg: serviceData['servicedImg'],
+                  serviceDescription: serviceData['serviceDescription'],
                 );
 
                 // CategoriesModel categoriesModel = CategoriesModel(
@@ -110,18 +82,37 @@ class _ServicesScreenState extends State<ServicesScreen> {
                 //   createdAt: snapshot.data!.docs[index]['createdAt'],
                 //   updatedAt: snapshot.data!.docs[index]['updatedAt'],
                 // );
+                return Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () => Get.to(() =>
+                          ServiceDetailsScreen(servicedetailModel: servicedetailModel)),
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Container(
+                          child: FillImageCard(
+                            borderRadius: 20.0,
+                            width: Get.width / 2.3,
+                            heightImage: Get.height / 6,
+                            imageProvider: CachedNetworkImageProvider(
+                              servicedetailModel.servicedImg[0],
+                            ),
+                            title: Center(
+                              child: Text(
+                                servicedetailModel.serviceName,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(fontSize: 12.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
               },
             );
-
-            // Container(
-            //   height: Get.height / 5.0,
-            //   child: ListView.builder(
-            //     itemCount: snapshot.data!.docs.length,
-            //     shrinkWrap: true,
-            //     scrollDirection: Axis.horizontal,
-
-            //   ),
-            // );
           }
 
           return Container();
